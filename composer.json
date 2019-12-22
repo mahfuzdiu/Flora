@@ -1,0 +1,12 @@
+{
+    "name": "mahfuz/mvc",
+    "description": "Building a mvc structure from scratch",
+    "type": "project",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\" : "app"
+        }
+    }
+}
