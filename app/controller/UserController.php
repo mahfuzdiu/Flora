@@ -2,9 +2,12 @@
 
 namespace app\controller;
 
+use app\model\User;
+
 Class UserController
 {
-    function __construct(){
-        echo 'User controller' . '<br>';
+    function getUsers()
+    {
+        User::get();
     }
 }

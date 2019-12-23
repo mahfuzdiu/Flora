@@ -2,11 +2,11 @@
 
 namespace app\model;
 
-Class User
+use app\core\Model;
+
+Class User extends Model
 {
-    function __construct(){
-        echo 'User model';
-    }
+
 }
 
 ?>

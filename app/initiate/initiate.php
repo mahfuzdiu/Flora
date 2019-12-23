@@ -1,13 +1,3 @@
 <?php
-
-use app\config\Database;
-
-//initiating database
-new Database();
-
-//initiating router
-
-if(isset($_GET['url']))
-{
-    var_dump($_GET['url']);
-}
+require __DIR__ . '/../core/Route.php';
+require __DIR__ . '/../router/web.php';
