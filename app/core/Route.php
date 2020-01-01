@@ -9,7 +9,12 @@ class Route
     public $requestType;
     public $url;
     public $route = [];
+    private $loader;
 
+    public function __construct()
+    {
+        $this->loader =  new ControllerLoader();
+    }
 
     /**
      * @param $methodName
@@ -22,13 +27,14 @@ class Route
 
         $obj->route = $obj->extractRoute($methodName);
 
-        //if $arguments[0] doesnt contain @ but /
+        //if $arguments[0] doesn't contain @ but /
         if($obj->routeMatched($obj->route, $arguments[0])){
             $actions = explode('@', $arguments[1]);
             $controller = $actions[0];
             $method = $actions[1];
 
-            $obj->loadController($controller, $method);
+            //loading the requested controller and method
+            $obj->loader->loadController($controller, $method);
             die();
         }
     }
@@ -87,10 +93,4 @@ class Route
         return true;
     }
 
-
-    public function loadController($controller, $method)
-    {
-        //controller work
-        var_dump($controller, $method);
-    }
 }
