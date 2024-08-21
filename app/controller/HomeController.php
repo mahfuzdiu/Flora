@@ -9,15 +9,19 @@
 namespace app\controller;
 
 
-class HomeController
+
+class HomeController extends Controller
 {
     public function welcome()
     {
-        echo 'welcome to flora';
+        $buyerIp = $_SERVER['REMOTE_ADDR'];
+        $this->view('home', [
+            'ip' => $buyerIp
+        ]);
     }
 
-    public static function home()
+    public static function submitForm()
     {
-        echo 'im at home';
+        echo 'im submitForm';
     }
 }
