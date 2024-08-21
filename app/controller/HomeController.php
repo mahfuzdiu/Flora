@@ -11,6 +11,11 @@ namespace app\controller;
 
 class HomeController
 {
+    public function welcome()
+    {
+        echo 'welcome to flora';
+    }
+
     public static function home()
     {
         echo 'im at home';
