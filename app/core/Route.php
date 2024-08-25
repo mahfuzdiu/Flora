@@ -50,17 +50,17 @@ class Route
         switch ($requestType){
             case 'get':
 
-                if(isset($_GET['url']))
-                    $this->url = $_GET['url'];
+                if(isset($_SERVER['REQUEST_URI'])){
+                    $this->url = $_SERVER['REQUEST_URI'];
+                }
                 else
                     $this->url = '/';
                 break;
 
             case 'post':
-
-                //need to handle post request
-                if(isset($_POST['url']))
-                    $this->url = $_POST['url'];
+                if($_SERVER['REQUEST_URI']){
+                    $this->url = $_SERVER['REQUEST_URI'];
+                }
                 else
                     $this->url = '/';
                 break;

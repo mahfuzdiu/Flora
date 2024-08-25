@@ -5,10 +5,12 @@ namespace app\core;
 
 
 use app\config\Database;
+use app\utility\Logger;
 
 class Model extends Database
 {
     public $con;
+    const SALT = 'salt for secret values';
 
     // initiating database
 
@@ -24,8 +26,11 @@ class Model extends Database
     /**
      * @return string
      */
-    public static function get(){
+    public function get(){
         return 'get all data from database';
     }
 
+    public function insert($data)
+    {
+    }
 }

@@ -8,20 +8,14 @@
 
 namespace app\controller;
 
-
+use app\model\Buyer;
+use app\utility\Logger;
 
 class HomeController extends Controller
 {
     public function welcome()
     {
-        $buyerIp = $_SERVER['REMOTE_ADDR'];
-        $this->view('home', [
-            'ip' => $buyerIp
-        ]);
-    }
-
-    public static function submitForm()
-    {
-        echo 'im submitForm';
+        $isBuyerSubmitted = isset($_COOKIE['buyer_submitted']);
+        $this->view('home', ['isBuyerSubmitted' => $isBuyerSubmitted]);
     }
 }
