@@ -3,7 +3,9 @@
     "description": "Building a mvc structure from scratch",
     "type": "project",
     "license": "MIT",
-    "require": {},
+    "require": {
+        "twig/twig": "^3.0"
+    },
     "autoload": {
         "psr-4": {
             "app\\" : "app"

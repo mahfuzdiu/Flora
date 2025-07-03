@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico" />
+
+    <title>MVC Project</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.0/examples/checkout/"
+    />
+
+    <!-- Bootstrap core CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-light">
+    <div class="container">
+      <div class="row mt-5 border">
+        <div class="col-md-6 offset-3 pt-5">
+          <h4 class="mb-3">Buyer Form
+          <a href="/buyers">[ Visit Buyer Data ]</a>
+          </h4>
+
+          {% if isBuyerSubmitted == false %}
+          <form
+                  id="mvcForm"
+                  action=""
+                  onsubmit="return submitForm()"
+                  method="post"
+          >
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="amount">Amount</label>
+                <input
+                        name="amount"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="amount"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="buyer">Buyer</label>
+                <input
+                        name="buyer"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="buyer"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="receipt_id">Receipt ID</label>
+                <input
+                        name="receipt_id"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="receipt_id"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="items">Items</label>
+                <input
+                        name="items"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="items"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="buyer_email">Buyer Email</label>
+                <input
+                        name="buyer_email"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="buyer_email"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="buyer_ip">Entry By</label>
+                <input
+                        name="entry_by"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="entry_by"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="city">City</label>
+                <input
+                        name="city"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="city"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="phone">Phone</label>
+                <input
+                        name="phone"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="phone"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="note">Note</label>
+                <input
+                        name="note"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="note"
+                        placeholder=""
+                        value=""
+                />
+                <span class="error"></span>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm btn-block mb-5" type="submit">
+              Submit
+            </button>
+          </form>
+          {% else %}
+          <h1>Form is Submitted.</h1>
+          <p class="mb-5">Disabled for 24 hours. Counted from now</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <script>
+      let isValidated = true;
+
+      function submitForm() {
+        try {
+          let form = document.getElementById("mvcForm");
+          let formData = new FormData(form);
+          let formArray = Array.from(form);
+
+          if (validateForm(formArray, formData)) {
+            submitData(formData);
+          } else alert("not validated");
+        } catch (error) {
+          alert(error);
+        }
+        return false;
+      }
+
+      function submitData(formData) {
+        let formValue = {
+          "amount": formData.get('amount'),
+          "buyer": formData.get('buyer'),
+          "receipt_id": formData.get('receipt_id'),
+          "buyer_email": formData.get('buyer_email'),
+          "items": formData.get('items'),
+          "city": formData.get('city'),
+          "phone": '88' + formData.get('phone'),
+          "note": formData.get('note'),
+          "entry_by": formData.get('entry_by')
+        }
+
+        fetch("/submit-data", {
+          method: "post",
+          body: JSON.stringify(formValue),
+        })
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            if(data.status === 200)
+              location.reload();
+          })
+          .catch(function (error) {
+            console.error("Error:", error);
+          });
+      }
+
+      function validateForm(formArray, formData) {
+        for (const [key, value] of formData) {
+          let regex = null;
+          let input = null;
+          let errorMessage = "";
+          switch (key) {
+            case "amount":
+              input = formArray.find((item) => item.id === "amount");
+              regex = /\d+/;
+              errorMessage = "Only numbers";
+              validator(key, value, input, regex, errorMessage);
+              break;
+            case "buyer":
+              input = formArray.find((item) => item.id === "buyer");
+              regex = /^[a-z0-9 ]{1,20}$/i;
+              errorMessage =
+                "only text, spaces and numbers, not more than 20 characters";
+              validator(key, value, input, regex, errorMessage);
+              break;
+            case "receipt_id":
+              input = formArray.find((item) => item.id === "receipt_id");
+              regex = /^[a-z]*$/i;
+              errorMessage = "only text without spaces";
+              validator(key, value, input, regex, errorMessage);
+              break;
+            case "buyer_email":
+              input = formArray.find((item) => item.id === "buyer_email");
+              regex = /^\w+@\w+\.[a-z]+$/i;
+              errorMessage = "Valid email only";
+              validator(key, value, input, regex, errorMessage);
+              break;
+            case "items":
+              input = formArray.find((item) => item.id === "items");
+              regex = /^[\w, ]+$/i;
+              errorMessage = "Coma separated values";
+              validator(key, value, input, regex, errorMessage);
+              break;
+            case "city":
+              input = formArray.find((item) => item.id === "city");
+              regex = /^[a-z ]+$/i;
+              errorMessage = "only text and spaces";
+              validator(key, value, input, regex, errorMessage);
+              break;
+            case "phone":
+              input = formArray.find((item) => item.id === "phone");
+              regex = /^0[0-9]{10}$/i;
+              errorMessage =
+                "enter valid phone number";
+              validator(key, value, input, regex, errorMessage);
+              break;
+
+            case "note":
+              input = formArray.find((item) => item.id === "note");
+              regex = /^[a-z ]+$/i;
+              errorMessage = "only text and spaces";
+              validator(key, value, input, regex, errorMessage);
+              break;
+            case "entry_by":
+              input = formArray.find((item) => item.id === "entry_by");
+              regex = /^[0-9]+$/i;
+              errorMessage = "only number";
+              validator(key, value, input, regex, errorMessage);
+              break;
+          }
+        }
+        return isValidated;
+      }
+
+      //============validators=============
+      function validator(key, value, input, regex, errorMessage) {
+        try {
+          if (value == "") {
+            isValidated = false;
+            showErrorMessage(input, "Field is empty");
+            return;
+          }
+
+          if (regex.test(value) == false) {
+            isValidated = false;
+            showErrorMessage(input, errorMessage);
+          } else {
+            isValidated = true;
+            input.nextElementSibling.innerText = "";
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      function showErrorMessage(input, errorMessage) {
+        input.nextElementSibling.innerText = errorMessage;
+        input.nextElementSibling.style.color = "red";
+      }
+    </script>
+  </body>
+</html>

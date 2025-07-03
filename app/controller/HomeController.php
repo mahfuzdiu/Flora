@@ -8,16 +8,14 @@
 
 namespace app\controller;
 
+use app\model\Buyer;
+use app\utility\Logger;
 
-class HomeController
+class HomeController extends Controller
 {
     public function welcome()
     {
-        echo 'welcome to flora';
-    }
-
-    public static function home()
-    {
-        echo 'im at home';
+        $isBuyerSubmitted = isset($_COOKIE['buyer_submitted']);
+        $this->view('home', ['isBuyerSubmitted' => $isBuyerSubmitted]);
     }
 }

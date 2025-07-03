@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico" />
+
+    <title>MVC Project</title>
+
+    <link
+            rel="canonical"
+            href="https://getbootstrap.com/docs/4.0/examples/checkout/"
+    />
+
+    <!-- Bootstrap core CSS -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet" />
+</head>
+
+<body class="bg-light">
+<div class="">
+    <div class="row mt-5 border p-5">
+        <div class="col-md-12">
+            <h3>Buyer List
+                <a href="/">[ Home ]</a>
+            </h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">amount</th>
+                        <th scope="col">buyer</th>
+                        <th scope="col">receipt_id</th>
+                        <th scope="col">hash key</th>
+                        <th scope="col">items</th>
+                        <th scope="col">buyer_email</th>
+                        <th scope="col">phone</th>
+                        <th scope="col">entry_at</th>
+                        <th scope="col">entry_by</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if buyers > 0%}
+                    {% for buyer in buyers %}
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{buyer.amount}}</td>
+                        <td>{{buyer.buyer}}</td>
+                        <td>{{buyer.receipt_id}}</td>
+                        <td>{{buyer.hash_key|length > 25 ? buyer.hash_key|slice(0, 25) ~ '.....' : buyer.hash_key }}</td>
+                        <td>{{buyer.items}}</td>
+                        <td>{{buyer.buyer_email}}</td>
+                        <td>{{buyer.phone}}</td>
+                        <td>{{buyer.entry_at}}</td>
+                        <td>{{buyer.entry_by}}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <h3>No data available</h3>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
